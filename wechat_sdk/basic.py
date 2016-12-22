@@ -395,6 +395,19 @@ class WechatBasic(WechatBase):
         """
         return self.request.get('https://api.weixin.qq.com/cgi-bin/menu/delete')
 
+    def add_conditional_menu(self, menu_data):
+        """
+        创建个性化菜单
+        详情参考 https://mp.weixin.qq.com/wiki/0/c48ccd12b69ae023159b4bfaa7c39c20.html
+        :param menu_data: Python 字典
+        :return: 返回的 JSON 数据包
+        """
+        menu_data = self._transcoding_dict(menu_data)
+        return self.request.post(
+            url='https://api.weixin.qq.com/cgi-bin/menu/addconditional',
+            data=menu_data
+        )
+
     def upload_media(self, media_type, media_file, extension=''):
         """
         上传多媒体文件
